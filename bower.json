@@ -1,0 +1,26 @@
+{
+  "name": "ptools",
+  "authors": [
+    "kvfi <kouafi@icloud.com>"
+  ],
+  "description": "A personal logging system using language semantics",
+  "main": "",
+  "keywords": [
+    "logging",
+    "metrics",
+    "analytics"
+  ],
+  "license": "GNU",
+  "homepage": "https://github.com/kvfi/ptools",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "cardinal": "^3.6.1"
+  }
+}
