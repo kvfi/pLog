@@ -1,0 +1,30 @@
+{
+  "name": "ptools",
+  "version": "1.0.0",
+  "description": "## Getting Started",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kvfi/ptools.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kvfi/ptools/issues"
+  },
+  "homepage": "https://github.com/kvfi/ptools#readme",
+  "devDependencies": {
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
