@@ -22,6 +22,10 @@ _testmain.go
 *.exe
 *.test
 *.prof
+# NPM dependenties
+node_modules/
+
+# Revel
 test-results/
 tmp/
 routes/
