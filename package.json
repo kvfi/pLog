@@ -37,7 +37,6 @@
         "webpack": "^2.2.1"
     },
     "dependencies": {
-        "cardinalcss": "^3.7.0",
         "lodash": "^4.17.4"
     }
 }
