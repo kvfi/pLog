@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "## Getting Started",
   "main": "index.js",
+  "babel": {
+    "preset": ["es2015"]
+  },
   "directories": {
     "test": "tests"
   },
