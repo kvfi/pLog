@@ -1,35 +1,43 @@
 {
-  "name": "ptools",
-  "version": "1.0.0",
-  "description": "## Getting Started",
-  "main": "index.js",
-  "babel": {
-    "preset": ["es2015"]
-  },
-  "directories": {
-    "test": "tests"
-  },
-  "scripts": {
-    "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kvfi/ptools.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/kvfi/ptools/issues"
-  },
-  "homepage": "https://github.com/kvfi/ptools#readme",
-  "devDependencies": {
-    "babel-core": "^6.24.0",
-    "babel-loader": "^6.4.1",
-    "webpack": "^2.2.1"
-  },
-  "dependencies": {
-    "lodash": "^4.17.4"
-  }
+    "name": "ptools",
+    "version": "1.0.0",
+    "description": "## Getting Started",
+    "main": "index.js",
+    "babel": {
+        "presets": [
+            "env"
+        ]
+    },
+    "directories": {
+        "test": "tests"
+    },
+    "scripts": {
+        "run": "webpack --watch",
+        "build": "webpack",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kvfi/ptools.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/kvfi/ptools/issues"
+    },
+    "homepage": "https://github.com/kvfi/ptools#readme",
+    "devDependencies": {
+        "babel-core": "^6.24.0",
+        "babel-loader": "^6.4.1",
+        "babel-preset-env": "^1.2.2",
+        "css-loader": "^0.27.3",
+        "less": "^2.7.2",
+        "style-loader": "^0.15.0",
+        "webpack": "^2.2.1"
+    },
+    "dependencies": {
+        "cardinalcss": "^3.7.0",
+        "lodash": "^4.17.4"
+    }
 }
