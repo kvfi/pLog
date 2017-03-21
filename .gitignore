@@ -29,3 +29,7 @@ node_modules/
 test-results/
 tmp/
 routes/
+
+# System and IDEs
+.DStore
+.vscode/
