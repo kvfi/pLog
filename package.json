@@ -1,0 +1,30 @@
+{
+  "name": "plog.ouafi.net",
+  "version": "0.1.1",
+  "description": "A personal logging tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kvfi/plog"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kvfi/plog/issues"
+  },
+  "homepage": "https://github.com/kvfi/plog#README",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^2.2.1",
+    "grunt-contrib-uglify": "^3.3.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sass": "^2.0.0",
+    "jshint": "^2.9.4",
+    "load-grunt-tasks": "^3.5.2"
+  }
+}

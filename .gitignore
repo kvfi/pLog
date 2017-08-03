@@ -1,35 +1,16 @@
-# Compiled Object files, Static and Dynamic libs (Shared Objects)
-*.o
-*.a
-*.so
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# Folders
-_obj
-_test
+# Environments
+.env
+venv/
 
-# Architecture specific extensions/prefixes
-*.[568vq]
-[568vq].out
+# mkdocs documentation
+/site
 
-*.cgo1.go
-*.cgo2.c
-_cgo_defun.c
-_cgo_gotypes.go
-_cgo_export.*
-
-_testmain.go
-
-*.exe
-*.test
-*.prof
-# NPM dependenties
+# User-specific stuff:
+.idea/
 node_modules/
-
-# Revel
-test-results/
-tmp/
-routes/
-
-# System and IDEs
-.DStore
-.vscode/
+testing/

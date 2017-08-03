@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet" media="screen">
+</head>
+<body>
+<div class="container">
+    {% block menu %}
+        <div class="navbar main-menu">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+
+                    <!-- Be sure to leave the brand out there if you want it shown -->
+                    <a class="brand" href="{{ url_for('index') }}">Plog</a>
+                    <ul class="nav">
+                        <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li><a href="{{ url_for('todos') }}">Todos</a></li>
+                        <li>
+                            {% if current_user.is_anonymous %}
+                            <a href="{{ url_for('login') }}">Login</a>
+                            {% else %}
+                            <a href="{{ url_for('logout') }}">Logout</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                    <!-- Everything you want hidden at 940px or less, place within here -->
+                    <div class="nav-collapse collapse">
+                        <!-- .nav, .navbar-search, .navbar-form, etc -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    {% block landing %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+</div>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

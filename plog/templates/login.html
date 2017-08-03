@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block menu %}
+{% endblock %}
+{% block landing %}
+    <form class="form-signin" action="{{ url_for('login') }}" method="POST">
+        <h2 class="form-signin-heading">PLogin</h2>
+        {{ form.hidden_tag() }}
+        {{ form.username(size=32) }}
+        {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        {{ form.password(size=32) }}
+         {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        {{ form.submit() }}
+    </form>
+{% endblock %}
