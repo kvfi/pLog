@@ -16,7 +16,9 @@
     "url": "https://github.com/kvfi/plog/issues"
   },
   "homepage": "https://github.com/kvfi/plog#README",
-  "dependencies": {},
+  "dependencies": {
+    "spectre.css": "^0.5.0"
+  },
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-contrib-concat": "^1.0.1",

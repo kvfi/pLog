@@ -1,5 +1,6 @@
-from flask import render_template, flash, redirect, url_for
-from flask_login import current_user, login_user, logout_user
+from flask import render_template, redirect, url_for, request, flash, jsonify
+from flask_login import current_user, login_user, logout_user, login_required
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from plog import app
 from plog.forms import LoginForm
@@ -7,42 +8,61 @@ from plog.models import User
 
 
 @app.errorhandler(403)
-def internal_error(error):
+def internal_error():
     return render_template('errors/403.html'), 403
 
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index', endpoint='dashboard')
+@login_required
 def index():
-    return render_template('index.html')
+    meta = {'title': 'Index'}
+    return render_template('index.html', meta=meta)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'], endpoint='login')
 def login():
+    meta = {'title': 'Log In'}
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('dashboard'))
     form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
-            return redirect(url_for('login'))
-        login_user(user)
-        return redirect(url_for('index'))
-    return render_template('login.html', title='Sign In', form=form)
+    if request.method == 'POST':
+        if form.validate():
+            check_user = User.objects(email=form.email.data).first()
+            print(check_user)
+            if check_user:
+                if check_password_hash(check_user['password'], form.password.data):
+                    login_user(check_user)
+                    return redirect(url_for('dashboard'))
+    return render_template('login.html', meta=meta, form=form)
 
 
 @app.route('/logout')
 def logout():
-    logout_user()
-    return redirect(url_for('index'))
+    u = logout_user()
+    if u:
+        flash('You were successfully logged in')
+    return redirect(url_for('login'))
 
 
 @app.route('/todos')
 def todos():
-    return render_template('todos.html', todos='x')
+    meta = {'title': 'Tasks'}
+    return render_template('todos.html', todos='x', meta=meta)
 
 
-if __name__ == '__main__':
-    app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.run()
+@app.route('/user')
+@login_required
+def user():
+    return generate_password_hash('k0ù@£!4030')
+    '''user = User('ouafi@ouafi.net', 'k0ù@£!4030')
+    if user.find_by_email():
+        return 'yes'
+    else:
+        return 'no user'''
+
+@app.route('/token')
+@login_required
+def token():
+    return 'xd'
+

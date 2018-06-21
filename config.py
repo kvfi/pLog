@@ -1,13 +1,17 @@
 import os
-from os.path import join, dirname
 
 from dotenv import load_dotenv
+from flask_env import MetaFlaskEnv
 
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+load_dotenv()
 
 
-class Config(object):
+class Config(metaclass=MetaFlaskEnv):
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    WTF_CSRF_SECRET_KEY = os.environ.get('WTF_CSRF_SECRET_KEY')
+    MONGODB_SETTINGS = {
+        'db': os.environ.get('MONGO_DATABASE'),
+        'username': os.environ.get('MONGO_USERNAME'),
+        'password': os.environ.get('MONGO_PASSWORD'),
+        'host': os.environ.get('MONGO_HOST')
+    }

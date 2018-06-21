@@ -1,0 +1,15 @@
+$primary-btn-color: #fff;
+
+.btn-primary {
+  background: #0052cc none;
+  border-color: transparent;
+  color: $primary-btn-color;
+  text-decoration: none;
+
+  a {
+    color: $primary-btn-color;
+  }
+  &:hover {
+
+  }
+}

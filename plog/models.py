@@ -1,63 +1,40 @@
+import datetime
+import os
+
 from flask_login import UserMixin
-from sqlalchemy.sql import func
-from werkzeug.security import generate_password_hash, check_password_hash
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, SignatureExpired, BadSignature
 
-from plog import db
-from plog import login
+from plog import lmanager, db
 
 
-class Project(db.Model):
-    __tablename__ = 'projects'
+class User(UserMixin, db.Document):
+    meta = {'collection': 'users'}
+    email = db.EmailField(unique=True)
+    username = db.StringField(default=True)
+    password = db.StringField(default=True)
+    is_active = db.BooleanField(default=True)
+    is_admin = db.BooleanField(default=False)
+    timestamp = db.DateTimeField(default=datetime.datetime.now())
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-    type = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, server_default=func.now())
-    updated_at = db.Column(db.DateTime, server_default=func.now())
+    def __unicode__(self):
+        return self.email
 
+    def generate_auth_token(self, exp=600):
+        s = Serializer(os.environ.get('SECRET_KEY'), expires_in=exp)
+        return s.dump({'id': self.username})
 
-class TodoType(db.Model):
-    __tablename__ = 'todo_types'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-
-
-class Todo(db.Model):
-    __tablename__ = 'todos'
-
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200))
-    project_id = db.Column(db.ForeignKey('projects.id', ondelete='CASCADE', onupdate='CASCADE'), index=True)
-    status = db.Column(db.Integer)
-    created_by = db.Column(db.ForeignKey('users.id', ondelete='CASCADE', onupdate='CASCADE'), index=True)
-    type = db.Column(db.ForeignKey('todo_types.id', ondelete='CASCADE', onupdate='CASCADE'), index=True)
-    created_at = db.Column(db.DateTime, server_default=func.now())
-    due_at = db.Column(db.DateTime, server_default=func.now())
-    updated_at = db.Column(db.DateTime, server_default=func.now())
-    finished_at = db.Column(db.DateTime, server_default=func.now())
-
-    user = db.relationship('User', primaryjoin='Todo.created_by == User.id', backref='todoes')
-    project = db.relationship('Project', primaryjoin='Todo.project_id == Project.id', backref='todoes')
-    todo_type = db.relationship('TodoType', primaryjoin='Todo.type == TodoType.id', backref='todoes')
+    def verify_auth_token(token):
+        s = Serializer(os.environ.get('SECRET_KEY'))
+        try:
+            data = s.loads(token)
+        except SignatureExpired:
+            return None
+        except BadSignature:
+            return None
+        u = data['id']
+        return u
 
 
-class User(UserMixin, db.Model):
-    __tablename__ = 'users'
-
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), nullable=False)
-    full_name = db.Column(db.String(50))
-    password = db.Column(db.String(200))
-    email = db.Column(db.String(50))
-
-    def set_password(self, password):
-        self.password = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password, password)
-
-
-@login.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+@lmanager.user_loader
+def user_loader(user_id):
+    return User.objects(pk=user_id).first()
